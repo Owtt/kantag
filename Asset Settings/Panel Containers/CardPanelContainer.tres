@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cbr08n5tdsn5w"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gq87n"]
+
+[resource]
+texture = SubResource("CanvasTexture_gq87n")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+modulate_color = Color(0.470076, 0.470076, 0.470076, 1)

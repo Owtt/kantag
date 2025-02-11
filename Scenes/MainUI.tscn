@@ -1,0 +1,154 @@
+[gd_scene load_steps=7 format=3 uid="uid://nlsuvwivfyts"]
+
+[ext_resource type="Script" uid="uid://ccrmbvlaxa33p" path="res://Systems/User/UserLoader.cs" id="1_01jvk"]
+[ext_resource type="Resource" uid="uid://cd2ps0meg0foa" path="res://Systems/User/UserCardData.tres" id="2_ikaer"]
+[ext_resource type="Script" uid="uid://ceq73ulhitwgl" path="res://Systems/UI/MainMenuButtonController.cs" id="3_314ij"]
+[ext_resource type="LabelSettings" uid="uid://dv0g0kn4u1dr8" path="res://Asset Settings/Labels/MainMenuButtons.tres" id="3_oxfhm"]
+[ext_resource type="Resource" uid="uid://chiksiomd5oyw" path="res://Systems/User/UserData.tres" id="4_mbq23"]
+[ext_resource type="PackedScene" uid="uid://t88t5dskesax" path="res://Prefabs/SessionView.tscn" id="4_tug42"]
+
+[node name="MainUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_01jvk")
+_userCardData = ExtResource("2_ikaer")
+
+[node name="MainUIOptions" type="MarginContainer" parent="." node_paths=PackedStringArray("mainUIOptions", "continueButton", "newButton")]
+layout_mode = 1
+offset_left = 710.0
+offset_top = 540.0
+offset_right = 1210.0
+offset_bottom = 920.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+script = ExtResource("3_314ij")
+mainUIOptions = NodePath("VBoxContainer")
+continueButton = NodePath("VBoxContainer/Continue")
+newButton = NodePath("VBoxContainer/New")
+sessionViewPrefab = ExtResource("4_tug42")
+userData = ExtResource("4_mbq23")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUIOptions"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Continue" type="Button" parent="MainUIOptions/VBoxContainer"]
+custom_minimum_size = Vector2(420, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainUIOptions/VBoxContainer/Continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Continue"
+label_settings = ExtResource("3_oxfhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="New" type="Button" parent="MainUIOptions/VBoxContainer"]
+custom_minimum_size = Vector2(420, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainUIOptions/VBoxContainer/New"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "New"
+label_settings = ExtResource("3_oxfhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Load" type="Button" parent="MainUIOptions/VBoxContainer"]
+custom_minimum_size = Vector2(420, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainUIOptions/VBoxContainer/Load"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load"
+label_settings = ExtResource("3_oxfhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="Button" parent="MainUIOptions/VBoxContainer"]
+custom_minimum_size = Vector2(420, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainUIOptions/VBoxContainer/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+label_settings = ExtResource("3_oxfhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Login" type="Button" parent="MainUIOptions/VBoxContainer"]
+custom_minimum_size = Vector2(420, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainUIOptions/VBoxContainer/Login"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Login"
+label_settings = ExtResource("3_oxfhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="MainUIOptions/VBoxContainer"]
+custom_minimum_size = Vector2(420, 60)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MainUIOptions/VBoxContainer/Exit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = ExtResource("3_oxfhm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_up" from="MainUIOptions/VBoxContainer/Continue" to="MainUIOptions" method="OnContinueUp"]
+[connection signal="button_up" from="MainUIOptions/VBoxContainer/New" to="MainUIOptions" method="OnNewUp"]
+[connection signal="button_up" from="MainUIOptions/VBoxContainer/Load" to="MainUIOptions" method="OnLoadUp"]
+[connection signal="button_up" from="MainUIOptions/VBoxContainer/Options" to="MainUIOptions" method="OnOptionsUp"]
+[connection signal="button_up" from="MainUIOptions/VBoxContainer/Login" to="MainUIOptions" method="OnLoginUp"]
+[connection signal="button_up" from="MainUIOptions/VBoxContainer/Exit" to="MainUIOptions" method="OnExitUp"]

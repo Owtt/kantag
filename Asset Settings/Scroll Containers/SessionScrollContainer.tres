@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://yluasoha40id"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ip1fy"]
+
+[resource]
+texture = SubResource("CanvasTexture_ip1fy")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+modulate_color = Color(0.140447, 0.140447, 0.140447, 1)

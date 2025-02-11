@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctqglljbutjnn"]
+
+[ext_resource type="StyleBox" uid="uid://cgjd365bu6h2m" path="res://Asset Settings/Panel Containers/CategoryPanelContainer.tres" id="1_ucoxe"]
+[ext_resource type="Script" uid="uid://i23sk3m0lq8" path="res://Systems/UI/CategoryView.cs" id="2_3ajsf"]
+[ext_resource type="PackedScene" uid="uid://by6l7y1c6nhjd" path="res://Prefabs/TagView.tscn" id="3_rh7me"]
+
+[node name="CategoryView" type="PanelContainer" node_paths=PackedStringArray("categoryLabel", "tagContainer")]
+theme_override_styles/panel = ExtResource("1_ucoxe")
+script = ExtResource("2_3ajsf")
+categoryLabel = NodePath("VBoxContainer/CategoryLabel")
+tagContainer = NodePath("VBoxContainer/TagContainer")
+tagViewPrefab = ExtResource("3_rh7me")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CategoryLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Category Name"
+
+[node name="TagContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3

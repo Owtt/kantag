@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="UIData" load_steps=2 format=3 uid="uid://drwl45jwsgxt3"]
+
+[ext_resource type="Script" path="res://Systems/UI/UIData.cs" id="1_amf30"]
+
+[resource]
+script = ExtResource("1_amf30")

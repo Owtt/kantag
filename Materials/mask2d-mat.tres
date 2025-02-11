@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dmg7efnhnihp1"]
+
+[ext_resource type="Shader" path="res://Shaders/Mask2D.gdshader" id="1_65mud"]
+
+[resource]
+shader = ExtResource("1_65mud")
+shader_parameter/parentPos = null
+shader_parameter/parentSize = null
+shader_parameter/boundsTBRL = null

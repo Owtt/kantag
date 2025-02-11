@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="UserData" load_steps=2 format=3 uid="uid://chiksiomd5oyw"]
+
+[ext_resource type="Script" path="res://Systems/User/UserData.cs" id="1_q47mc"]
+
+[resource]
+script = ExtResource("1_q47mc")
