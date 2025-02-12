@@ -66,12 +66,11 @@ public partial class CardView : Control
 
     private void CalculateParentBounds()
     {
-        minBounds.X = parentContainer.Position.X + parentContainer.PadLeft;
-        minBounds.Y = parentContainer.Position.Y + parentContainer.PadTop;
+        minBounds.X = parentContainer.Position.X;
+        minBounds.Y = parentContainer.Position.Y;
 
-        maxBounds.X =
-            parentContainer.Position.X + parentContainer.Size.X - parentContainer.PadRight;
-        maxBounds.Y = parentContainer.Position.Y + parentContainer.Size.Y - parentContainer.PadBot;
+        maxBounds.X = parentContainer.Position.X + parentContainer.Size.X;
+        maxBounds.Y = parentContainer.Position.Y + parentContainer.Size.Y;
     }
 
     private bool CheckWithinParentBounds(Vector2 pos)
