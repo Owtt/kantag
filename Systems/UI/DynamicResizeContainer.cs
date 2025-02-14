@@ -36,8 +36,6 @@ public partial class DynamicResizeContainer : ResizingContainer
         childContainer.ChildEnteredTree += ChildAdded;
         childContainer.ChildExitingTree += ChildRemoved;
 
-        base.AddChild(childContainer);
-
         if (!scrollOverChildren)
         {
             if (scrollArea == null)
@@ -47,7 +45,15 @@ public partial class DynamicResizeContainer : ResizingContainer
             scrollArea.MouseExited += OnMouseExit;
         }
 
+        foreach (Node n in GetChildren())
+        {
+            base.RemoveChild(n);
+            this.AddChild(n);
+        }
+
         base._Ready();
+
+        base.AddChild(childContainer);
     }
 
     public override void _Input(InputEvent @event)
@@ -90,12 +96,12 @@ public partial class DynamicResizeContainer : ResizingContainer
         }
     }
 
-    private void ChildAdded(Node node)
+    protected override void ChildAdded(Node node)
     {
         UpdateSize();
     }
 
-    private void ChildRemoved(Node node)
+    protected override void ChildRemoved(Node node)
     {
         GD.Print(node.Name + " removed");
         Control c = node as Control;
@@ -158,7 +164,11 @@ public partial class DynamicResizeContainer : ResizingContainer
         // y += padBot;
 
         SetSize(largestX, y);
+
         childContainer.Size = new Vector2(largestX, y);
+
+        if (!updateParent)
+            childContainer.Position = new Vector2(padLeft, padTop);
 
         minScrollBounds.Y = Size.Y - childContainer.Size.Y;
     }
@@ -168,7 +178,7 @@ public partial class DynamicResizeContainer : ResizingContainer
         float x = 0f;
         float largestY = 0f;
 
-        x += padLeft;
+        // x += padLeft;
 
         foreach (Control c in children)
         {
@@ -184,6 +194,10 @@ public partial class DynamicResizeContainer : ResizingContainer
         // x += padRight;
 
         SetSize(x, largestY);
+
+        childContainer.Size = new Vector2(x, largestY);
+
+        minScrollBounds.X = Size.X - childContainer.Size.X;
     }
 
     private void ScrollContent(bool up)
@@ -243,48 +257,31 @@ public partial class DynamicResizeContainer : ResizingContainer
         ScrollContent(up);
     }
 
-    protected override void UpdateFormat(ResizeFormat nextFormat)
+    public override void SetSize(float x, float y)
     {
-        switch (Format)
+        if (useBounds)
         {
-            case ResizeFormat.Horizontal:
-                foreach (Control c in children)
-                {
-                    c.Resized -= ResizeHorizontalList;
-                }
-                break;
-            case ResizeFormat.Vertical:
-                foreach (Control c in children)
-                {
-                    c.Resized -= ResizeVerticalList;
-                }
-                break;
-            case ResizeFormat.Grid:
-                break;
-            default:
-                break;
-        }
+            if (updateParent)
+            {
+                Size = new Vector2(
+                    Math.Clamp(x, minBounds.X, maxBounds.X - padTop - padBot),
+                    Math.Clamp(y, minBounds.Y, maxBounds.Y - padLeft - padRight)
+                );
 
-        switch (nextFormat)
-        {
-            case ResizeFormat.Horizontal:
-                foreach (Control c in children)
-                {
-                    c.Resized += ResizeHorizontalList;
-                }
-                ResizeHorizontalList();
-                break;
-            case ResizeFormat.Vertical:
-                foreach (Control c in children)
-                {
-                    c.Resized += ResizeVerticalList;
-                }
-                ResizeVerticalList();
-                break;
-            case ResizeFormat.Grid:
-                break;
-            default:
-                break;
+                Position = new Vector2(padLeft, padTop);
+
+                parentContainer.Size = new Vector2(
+                    Math.Clamp(x + padLeft + padRight, minBounds.X, maxBounds.X),
+                    Math.Clamp(y + padTop + padBot, minBounds.Y, maxBounds.Y)
+                );
+            }
+            else
+            {
+                Size = new Vector2(
+                    Math.Clamp(x + padLeft + padRight, minBounds.X, maxBounds.X),
+                    Math.Clamp(y + padTop + padBot, minBounds.Y, maxBounds.Y)
+                );
+            }
         }
     }
 

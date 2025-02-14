@@ -2,20 +2,20 @@
 using Godot;
 
 [Tool]
-public partial class DynamicResizeContainerPlugin : EditorPlugin
+public partial class StaticResizeContainerPlugin : EditorPlugin
 {
     public override void _EnterTree()
     {
         // Initialization of the plugin goes here.
-        var script = GD.Load<Script>("res://Systems/UI/DynamicResizeContainer.cs");
+        var script = GD.Load<Script>("res://Systems/UI/StaticResizeContainer.cs");
         var texture = GD.Load<Texture2D>("res://Textures/White Square.png");
-        AddCustomType("DynamicResizeContainer", "Container", script, texture);
+        AddCustomType("StaticResizeContainer", "Container", script, texture);
     }
 
     public override void _ExitTree()
     {
         // Clean-up of the plugin goes here.
-        RemoveCustomType("DynamicResizeContainer");
+        RemoveCustomType("StaticResizeCotainer");
     }
 }
 #endif

@@ -46,7 +46,7 @@ public abstract partial class ResizingContainer : Container
 
     protected List<Control> children = new List<Control>();
 
-    private Control parentContainer;
+    protected Control parentContainer;
 
     public void CheckParentContainer()
     {
@@ -56,15 +56,14 @@ public abstract partial class ResizingContainer : Container
 
     public override void _Ready()
     {
-        if (updateParent)
-            parentContainer = GetParent() as Control;
+        CheckParentContainer();
 
-        foreach (Node n in GetChildren())
-        {
-            base.RemoveChild(n);
-            this.AddChild(n);
-        }
+        UpdateSize();
     }
+
+    protected abstract void ChildAdded(Node node);
+
+    protected abstract void ChildRemoved(Node node);
 
     public void SetResizeFormat(long value)
     {
@@ -96,26 +95,50 @@ public abstract partial class ResizingContainer : Container
 
     protected abstract void ResizeHorizontalList();
 
-    protected abstract void UpdateFormat(ResizeFormat nextFormat);
-
-    public void SetSize(float x, float y)
+    protected void UpdateFormat(ResizeFormat nextFormat)
     {
-        if (useBounds)
+        switch (Format)
         {
-            Size = new Vector2(
-                Math.Clamp(x, minBounds.X, maxBounds.X - padLeft - padRight),
-                Math.Clamp(y, minBounds.Y, maxBounds.Y - padTop - padBot)
-            );
-
-            if (!updateParent)
-                return;
-
-            parentContainer.Size = new Vector2(
-                Math.Clamp(x + padLeft + padRight, minBounds.X, maxBounds.X),
-                Math.Clamp(y + padTop + padBot, minBounds.Y, maxBounds.Y)
-            );
+            case ResizeFormat.Horizontal:
+                foreach (Control c in children)
+                {
+                    c.Resized -= ResizeHorizontalList;
+                }
+                break;
+            case ResizeFormat.Vertical:
+                foreach (Control c in children)
+                {
+                    c.Resized -= ResizeVerticalList;
+                }
+                break;
+            case ResizeFormat.Grid:
+                break;
+            default:
+                break;
         }
 
-        Position = new Vector2(padLeft, padTop);
+        switch (nextFormat)
+        {
+            case ResizeFormat.Horizontal:
+                foreach (Control c in children)
+                {
+                    c.Resized += ResizeHorizontalList;
+                }
+                ResizeHorizontalList();
+                break;
+            case ResizeFormat.Vertical:
+                foreach (Control c in children)
+                {
+                    c.Resized += ResizeVerticalList;
+                }
+                ResizeVerticalList();
+                break;
+            case ResizeFormat.Grid:
+                break;
+            default:
+                break;
+        }
     }
+
+    public abstract void SetSize(float x, float y);
 }

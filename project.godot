@@ -26,7 +26,7 @@ project/assembly_name="project-kantag"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/resize_container/plugin.cfg", "res://addons/resize_container_dropdown/plugin.cfg")
+enabled=PackedStringArray("res://addons/resize_container/plugin.cfg", "res://addons/resize_container_dropdown/plugin.cfg", "res://addons/static_resize_container/plugin.cfg")
 
 [input]
 

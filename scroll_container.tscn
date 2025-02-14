@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://5qvf1slculos"]
+[gd_scene load_steps=5 format=3 uid="uid://5qvf1slculos"]
 
 [ext_resource type="Script" uid="uid://db8cbj7jctwf3" path="res://Systems/UI/DynamicResizeContainer.cs" id="1_3l2vg"]
+[ext_resource type="Script" uid="uid://drc7858iotgk6" path="res://Systems/UI/StaticResizeContainer.cs" id="1_vpr3s"]
+[ext_resource type="LabelSettings" uid="uid://ykjh8t6rh1w8" path="res://Asset Settings/Labels/TagName.tres" id="2_a4hfo"]
 [ext_resource type="PackedScene" uid="uid://dke2sy823gc67" path="res://Prefabs/CardView.tscn" id="2_vpr3s"]
 
 [node name="Control" type="Control"]
@@ -14,26 +16,51 @@ grow_vertical = 2
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(338, 16)
 layout_mode = 0
-offset_right = 346.0
-offset_bottom = 119.0
+offset_right = 354.0
+offset_bottom = 120.0
 
-[node name="DynamicResizeContainer" type="Container" parent="Panel" node_paths=PackedStringArray("scrollArea")]
-clip_contents = true
+[node name="StaticResizeContainer" type="Container" parent="Panel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("1_3l2vg")
-scrollArea = NodePath("..")
-scrollOverChildren = true
-debugSpawn = true
-debugButton = 1
-debugPrefab = ExtResource("2_vpr3s")
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 342.0
+offset_bottom = 108.0
+script = ExtResource("1_vpr3s")
 padTop = 12.0
 padBot = 12.0
 padRight = 12.0
 padLeft = 12.0
+padContentY = 8.0
+padContentX = 8.0
+useBounds = true
+maxBounds = Vector2(354, 700)
+metadata/_custom_type_script = ExtResource("1_vpr3s")
+
+[node name="Label" type="Label" parent="Panel/StaticResizeContainer"]
+custom_minimum_size = Vector2(330, 40)
+layout_mode = 2
+text = "Title"
+label_settings = ExtResource("2_a4hfo")
+
+[node name="DynamicResizeContainer" type="Container" parent="Panel/StaticResizeContainer" node_paths=PackedStringArray("scrollArea")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("1_3l2vg")
+scrollArea = NodePath("../..")
+scrollOverChildren = true
+debugSpawn = true
+debugButton = 1
+debugPrefab = ExtResource("2_vpr3s")
+padRight = 4.0
+padLeft = 4.0
 padContentY = 4.0
 padContentX = 4.0
 useBounds = true
-maxBounds = Vector2(346, 700)
+updateParent = false
+minBounds = Vector2(330, 0)
+maxBounds = Vector2(330, 580)
 metadata/_custom_type_script = ExtResource("1_3l2vg")
+
+[node name="Button" type="Button" parent="Panel/StaticResizeContainer"]
+custom_minimum_size = Vector2(330, 40)
+layout_mode = 2
