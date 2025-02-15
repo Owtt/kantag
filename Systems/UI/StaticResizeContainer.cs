@@ -45,6 +45,15 @@ public partial class StaticResizeContainer : ResizingContainer
         UpdateSize();
     }
 
+    public override void SetResizeFormat(long value)
+    {
+        if (updateParent)
+            CheckParentContainer();
+
+        UpdateFormat((ResizeFormat)(int)value);
+        resizeFormat = (ResizeFormat)(int)value;
+    }
+
     protected override void ResizeVerticalList()
     {
         float y = 0f;
@@ -77,23 +86,23 @@ public partial class StaticResizeContainer : ResizingContainer
         float x = 0f;
         float largestY = 0f;
 
-        x += padLeft;
+        Vector2 pos = new Vector2(0, 0);
+        if (!updateParent)
+        {
+            pos = new Vector2(padLeft, padTop);
+        }
 
         foreach (Control c in children)
         {
             if (c.Size.Y > largestY)
                 largestY = c.Size.Y;
 
-            c.Position = new Vector2(0, x);
+            c.Position = new Vector2(pos.X + x, pos.Y);
             x += c.Size.X;
             x += padContentX;
         }
 
         x -= padContentX;
-
-        x += padRight;
-
-        largestY += padTop + padBot;
 
         SetSize(x, largestY);
     }
@@ -122,6 +131,22 @@ public partial class StaticResizeContainer : ResizingContainer
                     Math.Clamp(x + padLeft + padRight, minBounds.X, maxBounds.X),
                     Math.Clamp(y + padTop + padBot, minBounds.Y, maxBounds.Y)
                 );
+            }
+        }
+        else
+        {
+            if (updateParent)
+            {
+                GD.Print(x, y);
+                Size = new Vector2(x, y);
+
+                Position = new Vector2(padLeft, padTop);
+
+                parentContainer.Size = new Vector2(x + padLeft + padRight, y + padTop + padBot);
+            }
+            else
+            {
+                Size = new Vector2(x + padLeft + padRight, y + padTop + padBot);
             }
         }
     }

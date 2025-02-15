@@ -4,9 +4,10 @@ using Godot;
 
 public partial class ResizeFormatProperty : EditorProperty
 {
-    public Action<long> onItemSelected;
-
     private OptionButton optionButton = new();
+    private int currentValue;
+
+    private bool _updating = false;
 
     public ResizeFormatProperty(ResizeFormat format, ResizingContainer container)
     {
@@ -18,9 +19,29 @@ public partial class ResizeFormatProperty : EditorProperty
 
         optionButton.Select((int)format);
 
-        onItemSelected += container.SetResizeFormat;
+        optionButton.ItemSelected += onItemSelected;
 
-        optionButton.ItemSelected += onItemSelected.Invoke;
+        optionButton.ItemSelected += container.SetResizeFormat;
+    }
+
+    private void onItemSelected(long value)
+    {
+        if (_updating)
+            return;
+
+        currentValue = (int)value;
+        EmitChanged(GetEditedProperty(), currentValue);
+    }
+
+    public override void _UpdateProperty()
+    {
+        var newValue = (int)GetEditedObject().Get(GetEditedProperty());
+        if (newValue == currentValue)
+            return;
+
+        _updating = true;
+        currentValue = newValue;
+        _updating = false;
     }
 }
 

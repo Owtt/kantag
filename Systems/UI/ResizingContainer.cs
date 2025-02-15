@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-// TODO: find why first spawn disappears
-// TODO: create static resize container plugin
-
 [Tool]
 public abstract partial class ResizingContainer : Container
 {
@@ -12,7 +9,8 @@ public abstract partial class ResizingContainer : Container
 
     public ResizeFormat Format => resizeFormat;
 
-    private ResizeFormat resizeFormat;
+    [Export]
+    public ResizeFormat resizeFormat;
 
     [Export]
     protected float padTop;
@@ -48,10 +46,9 @@ public abstract partial class ResizingContainer : Container
 
     protected Control parentContainer;
 
-    public void CheckParentContainer()
+    protected void CheckParentContainer()
     {
-        if (parentContainer == null)
-            parentContainer = GetParent() as Control;
+        parentContainer = GetParent() as Control;
     }
 
     public override void _Ready()
@@ -65,17 +62,12 @@ public abstract partial class ResizingContainer : Container
 
     protected abstract void ChildRemoved(Node node);
 
-    public void SetResizeFormat(long value)
-    {
-        if (updateParent)
-            CheckParentContainer();
-
-        UpdateFormat((ResizeFormat)(int)value);
-        resizeFormat = (ResizeFormat)(int)value;
-    }
+    public abstract void SetResizeFormat(long value);
 
     protected virtual void UpdateSize()
     {
+        CheckParentContainer();
+
         switch (resizeFormat)
         {
             case ResizeFormat.Horizontal:

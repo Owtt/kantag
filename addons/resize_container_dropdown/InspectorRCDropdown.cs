@@ -20,15 +20,34 @@ public partial class InspectorRCDropdown : EditorInspectorPlugin
         return false;
     }
 
-    public override void _ParseCategory(GodotObject @object, string category)
+    public override bool _ParseProperty(
+        GodotObject @object,
+        Variant.Type type,
+        string name,
+        PropertyHint hintType,
+        string hintString,
+        PropertyUsageFlags usageFlags,
+        bool wide
+    )
     {
-        if (category == "ResizingContainer")
+        if (name == "resizeFormat")
         {
-            // Label label = new();
-            // label.Text = " Resize Format";
-            // AddCustomControl(label);
-            AddPropertyEditor("ResizeFormat", property);
+            AddPropertyEditor(name, property);
+            return true;
         }
+
+        return false;
     }
+
+    // public override void _ParseCategory(GodotObject @object, string category)
+    // {
+    //     if (category == "ResizingContainer")
+    //     {
+    //         // Label label = new();
+    //         // label.Text = " Resize Format";
+    //         // AddCustomControl(label);
+    //         AddPropertyEditor("resizeFormat", property);
+    //     }
+    // }
 }
 #endif

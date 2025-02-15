@@ -98,12 +98,22 @@ public partial class DynamicResizeContainer : ResizingContainer
 
     protected override void ChildAdded(Node node)
     {
-        UpdateSize();
+        if (node is Control c)
+        {
+            children.Add(c);
+
+            c.Resized += UpdateSize;
+
+            UpdateSize();
+        }
+        else
+        {
+            GD.PrintErr("Error: ResizingContainer is unable to accept non-control nodes.");
+        }
     }
 
     protected override void ChildRemoved(Node node)
     {
-        GD.Print(node.Name + " removed");
         Control c = node as Control;
         children.Remove(c);
 
@@ -123,18 +133,7 @@ public partial class DynamicResizeContainer : ResizingContainer
     private void AddChild(Node node)
     {
         // nodes added to this objects will be processed then added to a child object
-        if (node is Control c)
-        {
-            childContainer.AddChild(node);
-
-            children.Add(c);
-
-            c.Resized += UpdateSize;
-        }
-        else
-        {
-            GD.PrintErr("Error: ResizingContainer is unable to accept non-control nodes.");
-        }
+        childContainer.AddChild(node);
     }
 
     private new void RemoveChild(Node node)
@@ -143,12 +142,19 @@ public partial class DynamicResizeContainer : ResizingContainer
         childContainer.RemoveChild(node);
     }
 
+    public override void SetResizeFormat(long value)
+    {
+        if (updateParent)
+            CheckParentContainer();
+
+        resizeFormat = (ResizeFormat)(int)value;
+    }
+
     protected override void ResizeVerticalList()
     {
+        GD.Print("Verti");
         float y = 0f;
         float largestX = 0f;
-
-        // y += padTop;
 
         foreach (Control c in children)
         {
@@ -156,12 +162,12 @@ public partial class DynamicResizeContainer : ResizingContainer
                 largestX = c.Size.X;
 
             c.Position = new Vector2(0, y);
+
             y += c.Size.Y;
             y += padContentY;
         }
 
         y -= padContentY;
-        // y += padBot;
 
         SetSize(largestX, y);
 
@@ -175,10 +181,9 @@ public partial class DynamicResizeContainer : ResizingContainer
 
     protected override void ResizeHorizontalList()
     {
+        GD.Print("Hori");
         float x = 0f;
         float largestY = 0f;
-
-        // x += padLeft;
 
         foreach (Control c in children)
         {
@@ -191,7 +196,6 @@ public partial class DynamicResizeContainer : ResizingContainer
         }
 
         x -= padContentX;
-        // x += padRight;
 
         SetSize(x, largestY);
 
@@ -281,6 +285,21 @@ public partial class DynamicResizeContainer : ResizingContainer
                     Math.Clamp(x + padLeft + padRight, minBounds.X, maxBounds.X),
                     Math.Clamp(y + padTop + padBot, minBounds.Y, maxBounds.Y)
                 );
+            }
+        }
+        else
+        {
+            if (updateParent)
+            {
+                Size = new Vector2(x, y);
+
+                Position = new Vector2(padLeft, padTop);
+
+                parentContainer.Size = new Vector2(x + padLeft + padRight, y + padTop + padBot);
+            }
+            else
+            {
+                Size = new Vector2(x + padLeft + padRight, y + padTop + padBot);
             }
         }
     }

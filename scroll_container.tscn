@@ -16,15 +16,15 @@ grow_vertical = 2
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(338, 16)
 layout_mode = 0
-offset_right = 354.0
-offset_bottom = 120.0
+offset_right = 338.0
+offset_bottom = 16.0
 
 [node name="StaticResizeContainer" type="Container" parent="Panel"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 12.0
-offset_right = 342.0
-offset_bottom = 108.0
+offset_right = 12.0
+offset_bottom = 12.0
 script = ExtResource("1_vpr3s")
 padTop = 12.0
 padBot = 12.0
