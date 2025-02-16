@@ -1,6 +1,8 @@
 using System;
 using Godot;
 
+// TODO: add a session view
+
 [Tool]
 public partial class DynamicResizeContainer : ResizingContainer
 {
@@ -86,7 +88,7 @@ public partial class DynamicResizeContainer : ResizingContainer
         if (@event is InputEventMouseMotion mouse)
         {
             Vector2 mPos = mouse.Position;
-            Vector2 pPos = scrollArea.Position;
+            Vector2 pPos = scrollArea.GlobalPosition;
             Vector2 pSize = scrollArea.Size;
 
             bool inX = mPos.X > pPos.X && mPos.X < pPos.X + pSize.X;
@@ -172,9 +174,6 @@ public partial class DynamicResizeContainer : ResizingContainer
         SetSize(largestX, y);
 
         childContainer.Size = new Vector2(largestX, y);
-
-        if (!updateParent)
-            childContainer.Position = new Vector2(padLeft, padTop);
 
         minScrollBounds.Y = Size.Y - childContainer.Size.Y;
     }
@@ -285,6 +284,8 @@ public partial class DynamicResizeContainer : ResizingContainer
                     Math.Clamp(x + padLeft + padRight, minBounds.X, maxBounds.X),
                     Math.Clamp(y + padTop + padBot, minBounds.Y, maxBounds.Y)
                 );
+
+                childContainer.Position = new Vector2(padLeft, padTop);
             }
         }
         else
@@ -300,6 +301,8 @@ public partial class DynamicResizeContainer : ResizingContainer
             else
             {
                 Size = new Vector2(x + padLeft + padRight, y + padTop + padBot);
+
+                childContainer.Position = new Vector2(padLeft, padTop);
             }
         }
     }

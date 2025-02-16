@@ -6,15 +6,15 @@
 [ext_resource type="Script" uid="uid://db8cbj7jctwf3" path="res://Systems/UI/DynamicResizeContainer.cs" id="3_xvlnh"]
 
 [node name="CategoryView" type="Panel"]
-offset_right = 362.0
-offset_bottom = 114.0
+offset_right = 410.0
+offset_bottom = 82.0
 
 [node name="StaticResizeContainer" type="Container" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 346.0
-offset_bottom = 98.0
+offset_right = 394.0
+offset_bottom = 66.0
 script = ExtResource("1_jqm4h")
 padTop = 16.0
 padBot = 16.0
@@ -26,21 +26,31 @@ metadata/_custom_type_script = ExtResource("1_jqm4h")
 [node name="Label" type="Label" parent="StaticResizeContainer"]
 custom_minimum_size = Vector2(330, 50)
 layout_mode = 2
-text = "Category Title"
+text = "CategoryTitle"
 label_settings = ExtResource("2_ojrvn")
 
-[node name="DynamicResizeContainer" type="Container" parent="StaticResizeContainer" node_paths=PackedStringArray("scrollArea")]
+[node name="StaticResizeContainer" type="Container" parent="StaticResizeContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("1_jqm4h")
+resizeFormat = 1
+padContentX = 8.0
+updateParent = false
+metadata/_custom_type_script = ExtResource("1_jqm4h")
+
+[node name="DynamicResizeContainer" type="Container" parent="StaticResizeContainer/StaticResizeContainer" node_paths=PackedStringArray("scrollArea")]
 clip_contents = true
 layout_mode = 2
 script = ExtResource("3_xvlnh")
-scrollArea = NodePath("../..")
+scrollArea = NodePath("../../..")
 debugSpawn = true
 debugPrefab = ExtResource("3_rh7me")
 resizeFormat = 1
-padTop = 12.0
-padBot = 12.0
-padRight = 12.0
-padLeft = 12.0
 padContentX = 8.0
 updateParent = false
 metadata/_custom_type_script = ExtResource("3_xvlnh")
+
+[node name="Button" type="Button" parent="StaticResizeContainer/StaticResizeContainer"]
+custom_minimum_size = Vector2(354, 50)
+layout_mode = 2
+text = "+ Add Category"
