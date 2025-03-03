@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckahpopkqjylf"]
+
+[ext_resource type="Script" uid="uid://drc7858iotgk6" path="res://Systems/UI/StaticResizeContainer.cs" id="1_8wmmx"]
+[ext_resource type="Script" uid="uid://bnec4r3mqrcxo" path="res://Systems/UI/SessionView.cs" id="1_j2064"]
+[ext_resource type="Script" uid="uid://db8cbj7jctwf3" path="res://Systems/UI/DynamicResizeContainer.cs" id="2_bn7xj"]
+[ext_resource type="PackedScene" uid="uid://cdoq83joselcy" path="res://Prefabs/CategoryView.tscn" id="3_0y4rv"]
+[ext_resource type="Resource" uid="uid://chiksiomd5oyw" path="res://Systems/User/UserData.tres" id="3_e1eai"]
+[ext_resource type="Resource" uid="uid://cd2ps0meg0foa" path="res://Systems/User/UserCardData.tres" id="4_puq2u"]
+
+[node name="SessionView" type="Panel"]
+offset_right = 145.0
+offset_bottom = 79.0
+script = ExtResource("1_j2064")
+categoryPrefab = ExtResource("3_0y4rv")
+userData = ExtResource("3_e1eai")
+cardData = ExtResource("4_puq2u")
+
+[node name="StaticResizeContainer" type="Container" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 125.0
+offset_bottom = 59.0
+script = ExtResource("1_8wmmx")
+padTop = 20.0
+padBot = 20.0
+padRight = 20.0
+padLeft = 20.0
+padContentY = 16.0
+metadata/_custom_type_script = ExtResource("1_8wmmx")
+
+[node name="Label" type="Label" parent="StaticResizeContainer"]
+layout_mode = 2
+text = "SessionName"
+
+[node name="DynamicResizeContainer" type="Container" parent="StaticResizeContainer" node_paths=PackedStringArray("scrollArea")]
+layout_mode = 2
+script = ExtResource("2_bn7xj")
+scrollArea = NodePath("..")
+resizeFormat = 1
+padContentX = 12.0
+updateParent = false
+metadata/_custom_type_script = ExtResource("2_bn7xj")

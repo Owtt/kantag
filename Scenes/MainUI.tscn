@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://ceq73ulhitwgl" path="res://Systems/UI/MainMenuButtonController.cs" id="3_314ij"]
 [ext_resource type="LabelSettings" uid="uid://dv0g0kn4u1dr8" path="res://Asset Settings/Labels/MainMenuButtons.tres" id="3_oxfhm"]
 [ext_resource type="Resource" uid="uid://chiksiomd5oyw" path="res://Systems/User/UserData.tres" id="4_mbq23"]
-[ext_resource type="PackedScene" uid="uid://t88t5dskesax" path="res://Prefabs/SessionView.tscn" id="4_tug42"]
+[ext_resource type="PackedScene" uid="uid://ckahpopkqjylf" path="res://Prefabs/SessionView.tscn" id="4_tug42"]
 
 [node name="MainUi" type="Control"]
 layout_mode = 3

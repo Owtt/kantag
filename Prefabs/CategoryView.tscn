@@ -6,15 +6,15 @@
 [ext_resource type="Script" uid="uid://db8cbj7jctwf3" path="res://Systems/UI/DynamicResizeContainer.cs" id="3_xvlnh"]
 
 [node name="CategoryView" type="Panel"]
-offset_right = 410.0
-offset_bottom = 82.0
+offset_right = 32.0
+offset_bottom = 24.0
 
 [node name="StaticResizeContainer" type="Container" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 394.0
-offset_bottom = 66.0
+offset_right = 16.0
+offset_bottom = 16.0
 script = ExtResource("1_jqm4h")
 padTop = 16.0
 padBot = 16.0
