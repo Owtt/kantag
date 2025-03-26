@@ -5,6 +5,12 @@ public class Session
     public string Name => _name;
     private string _name;
 
-    public List<Category> Categories => _categories;
-    private List<Category> _categories = new List<Category>();
+    public Dictionary<string, Category> Categories => _categories;
+    private Dictionary<string, Category> _categories = new Dictionary<string, Category>();
+
+    public Session(string name, Category category)
+    {
+        _name = name;
+        _categories.Add(category.Name, category);
+    }
 }

@@ -6,11 +6,15 @@ using Godot;
 [GlobalClass]
 public partial class UserCardData : Resource
 {
+    public Dictionary<string, Session> Sessions = new Dictionary<string, Session>();
+
     public Dictionary<string, Category> Categories = new Dictionary<string, Category>();
 
     public Dictionary<string, Tag> Tags = new Dictionary<string, Tag>();
 
     public List<Card> Cards = new List<Card>();
+
+    public Session CurrentSession;
 
     private string _jsonFile = "user-card-data.json";
     private string _jsonPath;
@@ -58,6 +62,12 @@ public partial class UserCardData : Resource
         project.AddTag(notes);
 
         Categories.Add(project.Name, project);
+
+        Session startingSession = new Session("Starting Session", project);
+
+        Sessions.Add(startingSession.Name, startingSession);
+
+        CurrentSession = startingSession;
     }
 
     private void Load()

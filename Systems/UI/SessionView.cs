@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.IO;
 using Godot;
 
-public partial class SessionView : Node
+public partial class SessionView : UIView
 {
     public Session Session => _session;
     private Session _session;
@@ -10,26 +9,17 @@ public partial class SessionView : Node
     public Dictionary<string, CategoryView> CategoryViews = new Dictionary<string, CategoryView>();
 
     [Export]
-    private Control categoryContainer;
-
-    [Export]
-    private PackedScene categoryPrefab;
-
-    [Export]
-    private UserData userData;
-
-    [Export]
     private UserCardData cardData;
 
-    public override void _Ready()
+    public override void SetView(string viewName)
     {
         // add check for session loading
         // if first time user then do below
         foreach (string c in cardData.Categories.Keys)
         {
-            Node n = categoryPrefab.Instantiate<Node>();
+            Node n = prefab.Instantiate<Node>();
 
-            categoryContainer.AddChild(n);
+            childContainer.AddChild(n);
 
             CategoryView category = n as CategoryView;
 

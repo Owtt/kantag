@@ -7,10 +7,11 @@
 [ext_resource type="Resource" uid="uid://chiksiomd5oyw" path="res://Systems/User/UserData.tres" id="3_e1eai"]
 [ext_resource type="Resource" uid="uid://cd2ps0meg0foa" path="res://Systems/User/UserCardData.tres" id="4_puq2u"]
 
-[node name="SessionView" type="Panel"]
+[node name="SessionView" type="Panel" node_paths=PackedStringArray("categoryContainer")]
 offset_right = 145.0
 offset_bottom = 79.0
 script = ExtResource("1_j2064")
+categoryContainer = NodePath("StaticResizeContainer/DynamicResizeContainer")
 categoryPrefab = ExtResource("3_0y4rv")
 userData = ExtResource("3_e1eai")
 cardData = ExtResource("4_puq2u")
@@ -27,6 +28,7 @@ padBot = 20.0
 padRight = 20.0
 padLeft = 20.0
 padContentY = 16.0
+padContentX = 16.0
 metadata/_custom_type_script = ExtResource("1_8wmmx")
 
 [node name="Label" type="Label" parent="StaticResizeContainer"]
@@ -37,7 +39,10 @@ text = "SessionName"
 layout_mode = 2
 script = ExtResource("2_bn7xj")
 scrollArea = NodePath("..")
+debugSpawn = true
+debugPrefab = ExtResource("3_0y4rv")
 resizeFormat = 1
+padContentY = 12.0
 padContentX = 12.0
 updateParent = false
 metadata/_custom_type_script = ExtResource("2_bn7xj")

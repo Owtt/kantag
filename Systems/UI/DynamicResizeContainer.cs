@@ -1,7 +1,10 @@
 using System;
 using Godot;
 
-// TODO: add a session view
+// keep in mind that you'll need reference to this object type
+// if you're adding children dynamically
+
+// DynamicResizeContainer is for adding children dynamically
 
 [Tool]
 public partial class DynamicResizeContainer : ResizingContainer
@@ -132,13 +135,13 @@ public partial class DynamicResizeContainer : ResizingContainer
         scrollable = false;
     }
 
-    private void AddChild(Node node)
+    public void AddChild(Node node)
     {
         // nodes added to this objects will be processed then added to a child object
         childContainer.AddChild(node);
     }
 
-    private new void RemoveChild(Node node)
+    public new void RemoveChild(Node node)
     {
         // when removing an object, attempt to remove from said child node
         childContainer.RemoveChild(node);
@@ -154,7 +157,6 @@ public partial class DynamicResizeContainer : ResizingContainer
 
     protected override void ResizeVerticalList()
     {
-        GD.Print("Verti");
         float y = 0f;
         float largestX = 0f;
 
@@ -180,7 +182,6 @@ public partial class DynamicResizeContainer : ResizingContainer
 
     protected override void ResizeHorizontalList()
     {
-        GD.Print("Hori");
         float x = 0f;
         float largestY = 0f;
 

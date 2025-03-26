@@ -1,15 +1,19 @@
 using System;
 using Godot;
 
+// StaticResizeContainer is for resizing to maitain
+// a fixed amount of children.
+// the amount of children for child objects can be altered
+
 [Tool]
 public partial class StaticResizeContainer : ResizingContainer
 {
     public override void _Ready()
     {
+        base._Ready();
+
         ChildEnteredTree += ChildAdded;
         ChildExitingTree += ChildRemoved;
-
-        base._Ready();
 
         foreach (Node n in GetChildren())
         {
@@ -19,7 +23,6 @@ public partial class StaticResizeContainer : ResizingContainer
 
     protected override void ChildAdded(Node node)
     {
-        GD.Print("static: " + node.Name);
         if (node is Control c)
         {
             if (children.Contains(c))
@@ -137,7 +140,6 @@ public partial class StaticResizeContainer : ResizingContainer
         {
             if (updateParent)
             {
-                GD.Print(x, y);
                 Size = new Vector2(x, y);
 
                 Position = new Vector2(padLeft, padTop);

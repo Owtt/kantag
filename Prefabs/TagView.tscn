@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwhfba4eufhl5"]
+[gd_scene load_steps=6 format=3 uid="uid://bwhfba4eufhl5"]
 
+[ext_resource type="Script" uid="uid://7mb151rof0qt" path="res://Systems/UI/TagView.cs" id="1_4kp1s"]
 [ext_resource type="Script" uid="uid://drc7858iotgk6" path="res://Systems/UI/StaticResizeContainer.cs" id="1_beje4"]
 [ext_resource type="LabelSettings" uid="uid://ykjh8t6rh1w8" path="res://Asset Settings/Labels/TagName.tres" id="2_xf55o"]
 [ext_resource type="PackedScene" uid="uid://dke2sy823gc67" path="res://Prefabs/CardView.tscn" id="3_r6obf"]
 [ext_resource type="Script" uid="uid://db8cbj7jctwf3" path="res://Systems/UI/DynamicResizeContainer.cs" id="3_vdiaw"]
 
-[node name="TagView" type="Panel"]
+[node name="TagView" type="Panel" node_paths=PackedStringArray("tagTitle", "cardContainer")]
 offset_right = 24.0
 offset_bottom = 16.0
+script = ExtResource("1_4kp1s")
+tagTitle = NodePath("StaticResizeContainer/Label")
+cardContainer = NodePath("StaticResizeContainer/DynamicResizeContainer")
+cardViewPrefab = ExtResource("3_r6obf")
 
 [node name="StaticResizeContainer" type="Container" parent="."]
 layout_mode = 0

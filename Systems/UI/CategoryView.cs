@@ -1,34 +1,25 @@
 using Godot;
 
-public partial class CategoryView : Node
+public partial class CategoryView : UIView
 {
     public Category Category => _category;
     private Category _category;
 
-    [Export]
-    private Label categoryLabel;
-
-    [Export]
-    private Control tagContainer;
-
-    [Export]
-    private PackedScene tagViewPrefab;
-
-    public void SetCategoryView(Category category)
+    public override void SetView(string viewName)
     {
-        _category = category;
+        _category = cardData.CurrentSession.Categories[viewName];
 
-        categoryLabel.Text = category.Name;
+        label.Text = viewName;
 
-        foreach (string name in category.Tags.Keys)
+        foreach (string name in _category.Tags.Keys)
         {
-            Node n = tagViewPrefab.Instantiate<Node>();
+            Node n = prefab.Instantiate<Node>();
 
-            tagContainer.AddChild(n);
+            childContainer.AddChild(n);
 
             TagView tagView = n as TagView;
 
-            tagView.SetTagView(category.Tags[name]);
+            tagView.SetView(name);
         }
     }
 }

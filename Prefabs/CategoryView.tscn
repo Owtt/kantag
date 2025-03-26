@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdoq83joselcy"]
+[gd_scene load_steps=6 format=3 uid="uid://cdoq83joselcy"]
 
+[ext_resource type="Script" uid="uid://i23sk3m0lq8" path="res://Systems/UI/CategoryView.cs" id="1_b5s46"]
 [ext_resource type="Script" uid="uid://drc7858iotgk6" path="res://Systems/UI/StaticResizeContainer.cs" id="1_jqm4h"]
 [ext_resource type="LabelSettings" uid="uid://bg0rygoajaxr6" path="res://Asset Settings/Labels/CategoryName.tres" id="2_ojrvn"]
 [ext_resource type="PackedScene" uid="uid://bwhfba4eufhl5" path="res://Prefabs/TagView.tscn" id="3_rh7me"]
 [ext_resource type="Script" uid="uid://db8cbj7jctwf3" path="res://Systems/UI/DynamicResizeContainer.cs" id="3_xvlnh"]
 
-[node name="CategoryView" type="Panel"]
+[node name="CategoryView" type="Panel" node_paths=PackedStringArray("categoryLabel", "tagContainer")]
 offset_right = 32.0
 offset_bottom = 24.0
+script = ExtResource("1_b5s46")
+categoryLabel = NodePath("StaticResizeContainer/Label")
+tagContainer = NodePath("StaticResizeContainer/StaticResizeContainer/DynamicResizeContainer")
+tagViewPrefab = ExtResource("3_rh7me")
 
 [node name="StaticResizeContainer" type="Container" parent="."]
 layout_mode = 0

@@ -2,82 +2,82 @@ using Godot;
 
 public partial class CardView : Control
 {
-    public Card Card => _card;
-    private Card _card;
+	public Card Card => _card;
+	private Card _card;
 
-    private ResizingContainer parentContainer;
+	private ResizingContainer parentContainer;
 
-    private Vector2 minBounds;
-    private Vector2 maxBounds;
+	private Vector2 minBounds;
+	private Vector2 maxBounds;
 
-    [Export]
-    private Button btn;
+	[Export]
+	private Button btn;
 
-    [Export]
-    private Label nameText;
+	[Export]
+	private Label nameText;
 
-    [Export]
-    private Label dateText;
+	[Export]
+	private Label dateText;
 
-    [Export]
-    private Material material;
+	[Export]
+	private Material material;
 
-    public void SetCardView(Card card)
-    {
-        _card = card;
+	public void SetCardView(Card card)
+	{
+		_card = card;
 
-        nameText.Text = card.Name;
+		nameText.Text = card.Name;
 
-        dateText.Text = card.Created.ToString("dd/mm/yy");
-    }
+		dateText.Text = card.Created.ToString("dd/mm/yy");
+	}
 
-    public void SetParent(ResizingContainer rc)
-    {
-        parentContainer = rc;
-    }
+	public void SetParent(ResizingContainer rc)
+	{
+		parentContainer = rc;
+	}
 
-    public override void _Ready()
-    {
-        parentContainer = GetParent().GetParent<ResizingContainer>();
+	public override void _Ready()
+	{
+		parentContainer = GetParent().GetParent<ResizingContainer>();
 
-        GuiInput += ButtonPressed;
-    }
+		GuiInput += ButtonPressed;
+	}
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
 
-        if (!Visible)
-            GD.Print("im not visible: " + Name);
-    }
+		if (!Visible)
+			GD.Print("im not visible: " + Name);
+	}
 
-    private void ButtonPressed(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mb)
-        {
-            CalculateParentBounds();
+	private void ButtonPressed(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mb)
+		{
+			CalculateParentBounds();
 
-            if (CheckWithinParentBounds(mb.Position))
-            {
-                GD.Print("Pressed");
-            }
-        }
-    }
+			if (CheckWithinParentBounds(mb.Position))
+			{
+				GD.Print("Pressed");
+			}
+		}
+	}
 
-    private void CalculateParentBounds()
-    {
-        minBounds.X = parentContainer.Position.X;
-        minBounds.Y = parentContainer.Position.Y;
+	private void CalculateParentBounds()
+	{
+		minBounds.X = parentContainer.Position.X;
+		minBounds.Y = parentContainer.Position.Y;
 
-        maxBounds.X = parentContainer.Position.X + parentContainer.Size.X;
-        maxBounds.Y = parentContainer.Position.Y + parentContainer.Size.Y;
-    }
+		maxBounds.X = parentContainer.Position.X + parentContainer.Size.X;
+		maxBounds.Y = parentContainer.Position.Y + parentContainer.Size.Y;
+	}
 
-    private bool CheckWithinParentBounds(Vector2 pos)
-    {
-        bool inX = pos.X >= minBounds.X && pos.X <= maxBounds.X;
-        bool inY = pos.Y >= minBounds.Y && pos.Y <= maxBounds.Y;
+	private bool CheckWithinParentBounds(Vector2 pos)
+	{
+		bool inX = pos.X >= minBounds.X && pos.X <= maxBounds.X;
+		bool inY = pos.Y >= minBounds.Y && pos.Y <= maxBounds.Y;
 
-        return inX && inY;
-    }
+		return inX && inY;
+	}
 }

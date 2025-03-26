@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class TagView : PanelContainer
+public partial class TagView : UIView
 {
     public Tag Tag => _tag;
     private Tag _tag;

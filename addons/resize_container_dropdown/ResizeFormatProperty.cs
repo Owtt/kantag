@@ -28,7 +28,8 @@ public partial class ResizeFormatProperty : EditorProperty
 
         optionButton.ItemSelected += onItemSelected;
 
-        optionButton.ItemSelected += container.SetResizeFormat;
+        if (container != null)
+            optionButton.ItemSelected += container.SetResizeFormat;
     }
 
     public override void _ExitTree()
